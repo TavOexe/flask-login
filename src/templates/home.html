@@ -1,0 +1,160 @@
+{% extends 'base.html' %}}
+{% block title %}
+    Pedidos
+{% endblock %}
+{% block customCss %}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/home.css')}}">
+{% endblock customCss %}
+
+{% block body %}
+    
+<!-- NAVIGATION  -->
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand text-left" >Inpelsa Aprobación / Desaprobación de pedidos </a>
+        <div class=" mt-2 mt-md-0"> 
+            <img  src="https://inpelsa.com.pe/wp-content/uploads/2020/02/LOGOWEB-4.png" alt="" width="100" height="100">
+            <a class="btn text-white"> Hola, {{current_user.fullname}}</a>
+            <a class="btn btn-warning my-2 my-sm-0" href="{{ url_for('logout') }}"> Cerrar Sesión</a>
+        </div>
+    </div>
+</nav>
+<div class="container pt-lg-2">
+    {% with messages = get_flashed_messages ()%}
+        {% if messages %}
+          <br />
+          {% for message in messages %}
+            <div class="alert alert-primary alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong> {{message}} </strong> 
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    <div class=" card card-body " >
+        
+
+        <form action="/buscar" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="text" name="id" id="id" placeholder="Codigo">
+            <button class=" w-5 btn-primary "type="submit">
+                Search
+            </button>
+           <button>
+                <a class="  " href="/pedidos"> Actualizar</a>
+            </button>
+        </form>
+        
+    </div>
+    
+    
+    <div class="align-self-center">
+        <table id="dtVerticalScrollExample" class="table table-bordered table-hover bg-white table-sm">
+            <thead>
+                <tr>
+                    <th>N° Pedido</th>
+                    <th>Fecha de Emisión</th>
+                    <th>Codigo/RUC</th>
+                    <th>Cliente</th>
+                    <th>Importe Doc.</th>
+                    <th>Fecha de entrega</th>
+                    <th>vendedor</th>
+                    <th>Forma de pago</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>    
+                {%for pedido in pedido%}
+                <tr id="{{pedido.codigo}}" class="puntero"> 
+                        <td> {{pedido.codigo}}</td>
+                        <td> {{pedido.fechaemision}} </td>
+                        <td> {{pedido.ruc}}</td>
+                        <td> {{pedido.cliente}}</td>
+                        <td> {{pedido.importedoc}}</td>
+                        <td> {{pedido.fechaentrega}}</td>
+                        <td> {{pedido.vendedor}}</td>
+                        <td> {{pedido.formapago}}</td>
+                        <td> {{pedido.estado}} </td>
+                        <td>
+                            <a href="/pedido/rechazar/{{pedido.codigo}}" class="btn btn-danger">Rechazar</a>
+                        
+                            <a href="/pedido/aprobar/{{pedido.codigo}}" class="btn btn-success">Aprobar</a>
+                        </td>             
+                </tr>
+                <script>
+                    var npedido = document.getElementById("{{pedido.codigo}}");
+                    npedido.addEventListener("click", function(){
+                        window.location.href = "/pedido/{{pedido.codigo}}";
+                    });
+
+                </script>
+                {%endfor%}
+            </tbody>
+        </table>
+        <div class="container">
+            <div class="row">
+             <div class="col-7">
+                    <table class="table table-striped table-bordered bg-white table-sm">
+                        <thead>
+                            <tr>
+                                <th>Código </th>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio Sin Igv </th>
+                                <th>Precio Con Igv </th>
+                                <th>Sub-total </th>
+                            </tr>    
+                        </thead>
+
+
+                        {%for detalle in detalle%}
+                        <tbody>
+                            <td>{{detalle.codigo}}</td>
+                            <td>{{detalle.producto}}</td>
+                            <td>{{detalle.cantidad}}</td>
+                            <td>{{detalle.preciosinigv}}</td>
+                            <td>{{detalle.precioconigv}}</td>
+                            <td>{{detalle.subtotal}}</td>
+
+                        </tbody>
+                        {%endfor%}
+                    </table>
+             </div>
+             <div class="col-5"> 
+
+                
+                <table class="table bg-white row-cols-5 table-striped table-bordered">
+                        <tr>
+                            <th > Linea de credito </th>     
+                        </tr>
+                {%for deuda in deuda %}
+                        <tr>
+                            <th class="text-center"> S/. {{deuda.lineadecredito}}</th>
+                        </tr>
+                </table>
+                
+                <table class="table table-striped table-bordered bg-white table-sm">
+                    <thead>
+                        <tr>
+                            <th>Facturas x Cobrar </th>
+                            <th>Pedidos Autorizados</th>
+                            <th>Guias x Facturar</th>
+                            <th>Total Deuda</th>
+                        </tr>    
+                    </thead>
+                    
+                    <tbody>
+                        <td>{{deuda.facturasxcobrar}}</td>
+                        <td>{{deuda.pedidosautorizados}}</td>
+                        <td>{{deuda.guiasxfacturar}}</td>
+                        <td>{{deuda.totaldeuda}}</td>
+                    </tbody>
+                </table>
+                {%endfor%}
+             </div>
+             
+           </div>
+    
+        </div>
+</div>
+{% endblock body %}
