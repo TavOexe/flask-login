@@ -99,25 +99,32 @@ def detallepedido(id):
     return render_template('home.html', detalle =data,pedido=data2,deuda=data3,)
 
 #actualizar estado de pedido a Aprobado
-@app.route('/pedido/aprobar/<id>')
+@app.route('/pedido/aprobar/<int:id>')
 def aprobarpedido(id):
-    cur = db.cursor()
-    cur.execute("UPDATE Pedidos SET Estado = 'Aprobado' WHERE Codigo = {0}".format(id))
-    db.commit()
-    cur.close()
+    try:
+        cur = db.cursor()
+        cur.execute("UPDATE Pedidos SET Estado = 'Aprobado' WHERE Codigo = {0}".format(id))
+        db.commit()
+    except Exception as e:
+        # manejo de la excepción
+        print(e)
+    finally:
+        cur.close()
     return redirect(url_for('home'))
 
-#actualizar estado de pedido a Rechazado, si esta rechazado enviar alerta
-@app.route('/pedido/rechazar/<id>')
+#actualizar estado de pedido a Rechazado solo una vez
+@app.route('/pedido/rechazar/<int:id>')
 def rechazarpedido(id):
-    
-    cur = db.cursor()
-    cur.execute("UPDATE Pedidos SET Estado = 'Rechazado' WHERE Codigo = {0}".format(id))
-    db.commit()
-
-    cur.close()
+    try:
+        cur = db.cursor()
+        cur.execute("UPDATE Pedidos SET Estado = 'Rechazado' WHERE Codigo = {0}".format(id))
+        db.commit()
+    except Exception as e:
+        # manejo de la excepción
+        print(e)
+    finally:
+        cur.close()
     return redirect(url_for('home'))
-
 
 
 @app.route('/logout')
@@ -126,10 +133,10 @@ def logout():
     return redirect(url_for('login'))
 
 def status_401(error):
-    return "<h1> Pagina no encontrada/autorizada </h1> ", 401
+    return "<h1> ERROR 401 </h1> ", 401
 
 def status_404(error):
-    return "<h1> Pagina no encontrada/autorizada </h1> ", 404
+    return "<h1> ERROR 404 </h1> ", 404
 
 
 @app.route('/buscar', methods=['GET', 'POST'])

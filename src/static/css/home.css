@@ -9,8 +9,25 @@ body {
     cursor: pointer;
 }
 
+.left-table {
+    float: left;
+    width: 75%;
+  }
 
+  .right-table {
+    float: right;
+    width: 25%;
+  }
 
 .puntero{
     cursor: pointer;
 }
+
+.my-custom-scrollbar {
+    position: relative;
+    height: 400px;
+    overflow: auto;
+    }
+.table-wrapper-scroll-y {
+    display: block;
+    }

@@ -46,51 +46,54 @@
         </form>
         
     </div>
-    
-    
-    <div class="align-self-center">
-        <table id="dtVerticalScrollExample" class="table table-bordered table-hover bg-white table-sm">
-            <thead>
-                <tr>
-                    <th>N° Pedido</th>
-                    <th>Fecha de Emisión</th>
-                    <th>Codigo/RUC</th>
-                    <th>Cliente</th>
-                    <th>Importe Doc.</th>
-                    <th>Fecha de entrega</th>
-                    <th>vendedor</th>
-                    <th>Forma de pago</th>
-                    <th>Estado</th>
-                </tr>
-            </thead>
-            <tbody>    
-                {%for pedido in pedido%}
-                <tr id="{{pedido.codigo}}" class="puntero"> 
-                        <td> {{pedido.codigo}}</td>
-                        <td> {{pedido.fechaemision}} </td>
-                        <td> {{pedido.ruc}}</td>
-                        <td> {{pedido.cliente}}</td>
-                        <td> {{pedido.importedoc}}</td>
-                        <td> {{pedido.fechaentrega}}</td>
-                        <td> {{pedido.vendedor}}</td>
-                        <td> {{pedido.formapago}}</td>
-                        <td> {{pedido.estado}} </td>
-                        <td>
-                            <a href="/pedido/rechazar/{{pedido.codigo}}" class="btn btn-danger">Rechazar</a>
-                        
-                            <a href="/pedido/aprobar/{{pedido.codigo}}" class="btn btn-success">Aprobar</a>
-                        </td>             
-                </tr>
-                <script>
-                    var npedido = document.getElementById("{{pedido.codigo}}");
-                    npedido.addEventListener("click", function(){
-                        window.location.href = "/pedido/{{pedido.codigo}}";
-                    });
-
-                </script>
-                {%endfor%}
-            </tbody>
-        </table>
+    <br>
+        <div class="container-fluid table-wrapper-scroll-y my-custom-scrollbar">
+            <table  class="table table-bordered table-hover bg-white table-sm">
+                <thead>
+                    <tr>
+                        <th>N° Pedido</th>
+                        <th>Fecha de Emisión</th>
+                        <th>Codigo/RUC</th>
+                        <th>Cliente</th>
+                        <th>Importe Doc.</th>
+                        <th>Fecha de entrega</th>
+                        <th>vendedor</th>
+                        <th>Forma de pago</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                    <tbody>    
+                        {%for pedido in pedido%}
+                            <tr class="puntero">
+                                <td onclick="activatescript('{{pedido.codigo}}')"> {{pedido.codigo}}</td>
+                                <td onclick="activatescript('{{pedido.codigo}}')"> {{pedido.fechaemision}} </td>
+                                <td onclick="activatescript('{{pedido.codigo}}')"> {{pedido.ruc}}</td>
+                                <td onclick="activatescript('{{pedido.codigo}}')"> {{pedido.cliente}}</td>
+                                <td onclick="activatescript('{{pedido.codigo}}')"> {{pedido.importedoc}}</td>
+                                <td onclick="activatescript('{{pedido.codigo}}')"> {{pedido.fechaentrega}}</td>
+                                <td onclick="activatescript('{{pedido.codigo}}')"> {{pedido.vendedor}}</td>
+                                <td onclick="activatescript('{{pedido.codigo}}')"> {{pedido.formapago}}</td>
+                                <td onclick="activatescript('{{pedido.codigo}}')"> {{pedido.estado}} </td> 
+                                <td>
+                                    <a href="/pedido/rechazar/{{pedido.codigo}}" class="btn btn-danger btn-sm">Rechazar</a>
+                                    
+                                    <a href="/pedido/aprobar/{{pedido.codigo}}" class="btn btn-success btn-sm">Aprobar</a>
+                                </td> 
+                            </tr>           
+                            
+                        {%endfor%}
+                        <script>
+                            function activatescript(element) {
+                                // redirigir hacia pedido por id
+                                window.location.href = "/pedido/" + element;
+                
+                            }
+                        </script>
+                    </tbody>
+            </table>
+        </div>
+        <br>
         <div class="container">
             <div class="row">
              <div class="col-7">
@@ -121,8 +124,7 @@
                     </table>
              </div>
              <div class="col-5"> 
-
-                
+                                
                 <table class="table bg-white row-cols-5 table-striped table-bordered">
                         <tr>
                             <th > Linea de credito </th>     
@@ -152,9 +154,7 @@
                 </table>
                 {%endfor%}
              </div>
-             
            </div>
-    
-        </div>
+        </div>  
 </div>
 {% endblock body %}
