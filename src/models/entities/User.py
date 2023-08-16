@@ -12,3 +12,7 @@ class User(UserMixin):
     def check_password(self,hashed_password ,password):
         return check_password_hash(hashed_password, password)
 
+
+#probar password
+hashed_password = generate_password_hash('1234')
+print(hashed_password)

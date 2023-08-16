@@ -54,7 +54,6 @@ def login():
 
 
 @app.route('/pedidos')
-@login_required
 def home():
     cur = db.cursor()
     cur.execute('SELECT * FROM Pedidos order by FechaEmision desc')
