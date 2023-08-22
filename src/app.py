@@ -42,7 +42,7 @@ def login():
         if logged_user is not None:
             if logged_user.password:
                 login_user(logged_user)
-                return redirect(url_for('home'))
+                return redirect(url_for('ordencompra'))
             else:
                 flash('Contraseña invalida...')
                 return render_template('auth/login.html')
@@ -52,78 +52,15 @@ def login():
     else:
         return render_template('auth/login.html')
 
-
-@app.route('/pedidos')
-def home():
-    cur = db.cursor()
-    cur.execute('SELECT * FROM Pedidos order by FechaEmision desc')
-    data = cur.fetchall()
-    cur.close()
-
-    '''
-    cur = db.cursor()
-    cur.execute('SELECT * FROM Detalle_Pedido')
-    data2 = cur.fetchall()
-    cur.close()
-
-    cur = db.cursor()
-    cur.execute('SELECT * FROM Deuda')
-    data3 = cur.fetchall()
-    cur.close()
-
-    '''
-    
-    return render_template('home.html', pedido =data,)
-
-#ruta detalle pedido por id de pedido
-@app.route('/pedido/<id>')
+@app.route('/ordencompra')
 @login_required
-def detallepedido(id):
-    cur = db.cursor()
-    cur.execute('SELECT * FROM Pedidos  order by FechaEmision desc')
-    data2 = cur.fetchall()
-    cur.close()
-
-    cur = db.cursor()
-    cur.execute('SELECT * FROM Detalle_pedido WHERE Pedido_Codigo = {0}'.format(id))
-    data = cur.fetchall()
-    cur.close()
-
-    cur = db.cursor()
-    cur.execute('SELECT * FROM Deuda WHERE Pedido_Codigo = {0}'.format(id))
-    data3 = cur.fetchall()
-    cur.close()
+def ordencompra():
 
 
-    return render_template('home.html', detalle =data,pedido=data2,deuda=data3,)
+    return render_template('home.html')
 
-#actualizar estado de pedido a Aprobado
-@app.route('/pedido/aprobar/<int:id>')
-def aprobarpedido(id):
-    try:
-        cur = db.cursor()
-        cur.execute("UPDATE Pedidos SET Estado = 'Aprobado' WHERE Codigo = {0}".format(id))
-        db.commit()
-    except Exception as e:
-        # manejo de la excepción
-        print(e)
-    finally:
-        cur.close()
-    return redirect(url_for('home'))
 
-#actualizar estado de pedido a Rechazado solo una vez
-@app.route('/pedido/rechazar/<int:id>')
-def rechazarpedido(id):
-    try:
-        cur = db.cursor()
-        cur.execute("UPDATE Pedidos SET Estado = 'Rechazado' WHERE Codigo = {0}".format(id))
-        db.commit()
-    except Exception as e:
-        # manejo de la excepción
-        print(e)
-    finally:
-        cur.close()
-    return redirect(url_for('home'))
+
 
 
 @app.route('/logout')
@@ -136,40 +73,6 @@ def status_401(error):
 
 def status_404(error):
     return "<h1> ERROR 404 </h1> ", 404
-
-
-@app.route('/buscar', methods=['GET', 'POST'])
-def buscar():
-    if request.method == 'POST':
-        #si esta vacio el formulario retornar un mensaje
-        if request.form['id'] == '':
-            flash('Ingrese un codigo de pedido')
-            return redirect(url_for('home'))
-        else:
-            ide = request.form['id']
-            cur = db.cursor()
-            cur.execute('SELECT * FROM Pedidos WHERE Codigo = {0}'.format(ide))
-            data = cur.fetchall()
-            cur.close()
-            
-            if data == []:
-                flash('No se encontro el pedido')
-                return redirect(url_for('home'))
-
-            cur = db.cursor()
-            cur.execute('SELECT * FROM Detalle_pedido WHERE Pedido_Codigo = {0}'.format(ide))
-            data2 = cur.fetchall()
-            cur.close()
-
-            cur = db.cursor()
-            cur.execute('SELECT * FROM Deuda WHERE Pedido_Codigo = {0}'.format(ide))
-            data3 = cur.fetchall()
-            cur.close()
-            return render_template('home.html', pedido =data, detalle =data2,deuda=data3,)
-
-    else:
-        return render_template('home.html')
-
 
 
 
