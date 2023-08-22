@@ -311,7 +311,9 @@ body{
 .content main{
     width: 100%;
     padding: 36px 24px;
-    max-height: calc(100vh - 56px);
+    height: 650px;
+    /*max-height: calc(100% - 56px);*/
+    /*max-height: calc(100vh - 56px);*/
 }
 
 .content main .header{
@@ -347,19 +349,6 @@ body{
 .content main .header .left .breadcrumb li a.active{
     color: var(--primary);
     pointer-events: none;
-}
-
-.content main .header .order{
-    height: 36px;
-    padding: 0 16px;
-    border-radius: 36px;
-    background: var(--primary);
-    color: var(--light);
-    display: flex;
-    align-items: center;
-    justify-content: right;
-    grid-gap: 5px;
-    font-weight: 500;
 }
 
 .content main .header .report{
@@ -634,3 +623,81 @@ body{
     }
 
 }
+
+/* Vista de Ingresar Orden de Compra*/
+.content main .openBtn {
+    width: 100%;
+    padding: 36px 24px;
+    height: 550px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .content main .open-button {
+    display: block;
+    height: 150px;
+    width: 250px;
+    font-size: 25px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    background-color: #1c87c9;
+    color: white;
+    padding: 14px 20px;
+    cursor: pointer;
+    position: fixed;
+    margin: 0 auto;
+    /*margin-top: 12%;
+    margin-left: 31%;*/
+  }
+  .loginPopup {
+    position: relative;
+    text-align: center;
+    width: 100%;
+  }
+  .formPopup {
+    display: none;
+    position: fixed;
+    left: 57%;
+    top: 19%;
+    transform: translate(-50%, 5%);
+    border: 3px solid #999999;
+    z-index: 9;
+  }
+  .formContainer {
+    /*max-width: 300px;*/
+    width: 1225px;
+    height: 525px;
+    padding: 20px;
+    background-color: #fff;
+  }
+  .formContainer input[type=text],
+  .formContainer input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 20px 0;
+    border: none;
+    background: #eee;
+  }
+  .formContainer input[type=text]:focus,
+  .formContainer input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+  }
+  .formContainer .btn {
+    padding: 12px 20px;
+    border: none;
+    background-color: #8ebf42;
+    color: #fff;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 15px;
+    opacity: 0.8;
+  }
+  .formContainer .cancel {
+    background-color: #cc0000;
+  }
+  .formContainer .btn:hover,
+  .openButton:hover {
+    opacity: 1;
+  }

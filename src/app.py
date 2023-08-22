@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_wtf.csrf import CSRFProtect
 from config import config
-import  pypyodbc
+import pypyodbc
 #models 
 from models.ModelUser import ModelUser
 
@@ -55,9 +55,43 @@ def login():
 @app.route('/ordencompra')
 @login_required
 def ordencompra():
-
-
     return render_template('home.html')
+
+
+@app.route('/inventario')
+@login_required
+def inventario():
+    return render_template('inventory.html')
+
+@app.route('/cliente')
+@login_required
+def cliente():
+    return render_template('client.html')
+
+@app.route('/realizar_compra')
+@login_required
+def realizar_compra():
+    return render_template('doBuy.html')
+
+@app.route('/realizar_venta')
+@login_required
+def realizar_venta():
+    return render_template('doSell.html')
+
+@app.route('/proveedor')
+@login_required
+def proveedor():
+    return render_template('seller.html')
+
+@app.route('/ordenes_compra')
+@login_required
+def ver_ord_comp():
+    return render_template('BuyOrders.html')
+
+@app.route('/ordenes_venta')
+@login_required
+def ver_ord_ven():
+    return render_template('SellOrders.html')
 
 
 

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}}
 {% block title %}
-Dashboard
+Clientes
 {% endblock %}
 {% block customCss %}
 <link rel="stylesheet" href="{{url_for('static', filename='css/home.css')}}">
@@ -10,27 +10,27 @@ Dashboard
 
 
 <body>
+
     <!-- Sidebar -->
     <div class="sidebar">
         <a href="#" class="logo">
             <i class='bx bx-code-alt'></i>
-            <div class="logo-name"><span>AG</span>Inventario</div>
+            <div class="logo-name"><span>Asmr</span>Prog</div>
         </a>
         <ul class="side-menu">
-            <li class="active" ><a href="#"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
-            <li><a href="/cliente"><i class='bx bxs-dashboard'></i>Clientes</a></li>
-            <li><a href="/ordenes_compra"><i class='bx bx-store-alt'></i>Ordenes Compra</a></li>
+            <li class="active"><a href="#"><i class='bx bx-analyse'></i>Clientes</a></li>
+            <li><a href="/realizar_compra"><i class='bx bx-store-alt'></i>Ordenes Compra</a></li>
             <li><a href="/inventario"><i class='bx bx-store-alt'></i>Inventario</a></li>
-            <li><a href="#"><i class='bx bx-analyse'></i>Analytics</a></li>
-            <li><a href="/ordenes_venta"><i class='bx bx-message-square-dots'></i>Ordenes Venta</a></li>
-            <li><a href="/realizar_compra"><i class='bx bx-group'></i>Realizar Compra</a></li>
-            <li><a href="/realizar_venta"><i class='bx bxs-dashboard'></i>Ingresar Venta</a></li>
-            <li><a href="/proveedor"><i class='bx bxs-dashboard'></i>Vendedores</a></li>
+            <li><a href="/pedidos"><i class='bx bx-analyse'></i>Analytics</a></li>
+            <li><a href="#"><i class='bx bx-message-square-dots'></i>Ordenes Venta</a></li>
+            <li><a href="#"><i class='bx bx-group'></i>Realizar Compra</a></li>
+            <li><a href="#"><i class='bx bxs-dashboard'></i>Ingresar Venta</a></li>
+            <li><a href="#"><i class='bx bxs-dashboard'></i>Vendedores</a></li>
             <li><a href="#"><i class='bx bx-cog'></i>Settings</a></li>
         </ul>
         <ul class="side-menu">
             <li>
-                <a href="{{ url_for('logout') }}" class="logout">
+                <a href="#" class="logout">
                     <i class='bx bx-log-out-circle'></i>
                     Logout
                 </a>
@@ -57,15 +57,16 @@ Dashboard
                 <span class="count">12</span>
             </a>
             <a href="#" class="profile">
-                <img src="#">
+                <img src="images/logo.png">
             </a>
         </nav>
 
         <!-- End of Navbar -->
+
         <main>
             <div class="header">
                 <div class="left">
-                    <h1>Dashboard</h1>
+                    <h1>Clientes</h1>
                     <ul class="breadcrumb">
                         <li><a href="#">
                                 Analytics
@@ -74,10 +75,6 @@ Dashboard
                         <li><a href="#" class="active">Shop</a></li>
                     </ul>
                 </div>
-                <a href="#" class="order">
-                    <i class='bx bx-cloud-download'></i>
-                    <span>Ingresar Orden de Compra</span>
-                </a>
                 <a href="#" class="report">
                     <i class='bx bx-cloud-download'></i>
                     <span>Download CSV</span>
@@ -86,40 +83,39 @@ Dashboard
 
             <!-- Insights -->
             <ul class="insights">
-                <table class="table" style="background-color: var(--light);">
-                    <thead  style="background-color:greenyellow;" >
-                      <tr>
-                        <th scope="col">N°</th>
-                        <th scope="col">Productos</th>
-                        <th scope="col">Calidad</th>
-                        <th scope="col">Cantidad</th>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Unidades</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>    </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                      </tr>
-                    </tbody>
-                  </table>
-
+                <li>
+                    <i class='bx bx-calendar-check'></i>
+                    <span class="info">
+                        <h3>
+                            1,074
+                        </h3>
+                        <p>Paid Order</p>
+                    </span>
+                </li>
+                <li><i class='bx bx-show-alt'></i>
+                    <span class="info">
+                        <h3>
+                            3,944
+                        </h3>
+                        <p>Site Visit</p>
+                    </span>
+                </li>
+                <li><i class='bx bx-line-chart'></i>
+                    <span class="info">
+                        <h3>
+                            14,721
+                        </h3>
+                        <p>Searches</p>
+                    </span>
+                </li>
+                <li><i class='bx bx-dollar-circle'></i>
+                    <span class="info">
+                        <h3>
+                            $6,742
+                        </h3>
+                        <p>Total Sales</p>
+                    </span>
+                </li>
             </ul>
             <!-- End of Insights -->
 
